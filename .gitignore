@@ -1,6 +1,7 @@
 .gradle/
 build/
 out/
+AGENTS.md
 
 # Gradle wrapper JAR is intentionally tracked when generated.
 !gradle/wrapper/gradle-wrapper.jar

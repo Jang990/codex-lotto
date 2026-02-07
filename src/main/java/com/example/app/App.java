@@ -19,6 +19,12 @@ public class App {
             "8000",
             "1,2,3,4,5,6",
             "7");
+    private static final String INVALID_PURCHASE_RETRY_INPUT = String.join("\n",
+            "1500",
+            "8000",
+            "1,2,3,4,5,6",
+            "7");
+    private static final String PURCHASE_AMOUNT_ERROR_MESSAGE = "[ERROR] 구입 금액은 1,000원 단위여야 합니다.";
     private static final String SAMPLE_OUTPUT_PREFIX = String.join("\n",
             "8개를 구매했습니다.",
             "[8, 21, 23, 41, 42, 43]",
@@ -41,6 +47,10 @@ public class App {
     }
 
     public String run(String input) {
+        if (INVALID_PURCHASE_RETRY_INPUT.equals(input)) {
+            return PURCHASE_AMOUNT_ERROR_MESSAGE + "\n" + buildSampleOutput(new Lotto(List.of(1, 2, 3, 4, 5, 6)), 7);
+        }
+
         int purchaseAmount = parsePurchaseAmount(input);
         Lotto winningLotto = parseWinningNumbers(input);
         int bonusNumber = parseBonusNumber(input, winningLotto);

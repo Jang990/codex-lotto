@@ -77,4 +77,17 @@ class AppCaseTest {
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> app.run(input));
         assertTrue(exception.getMessage().startsWith("[ERROR]"));
     }
+
+    @Test
+    @DisplayName("보너스 번호가 당첨 번호와 중복되면 에러로 시작하는 예외를 던진다")
+    void throwsExceptionForDuplicateBonusNumber() {
+        App app = new App();
+        String input = String.join("\n",
+                "8000",
+                "1,2,3,4,5,6",
+                "6");
+
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> app.run(input));
+        assertTrue(exception.getMessage().startsWith("[ERROR]"));
+    }
 }

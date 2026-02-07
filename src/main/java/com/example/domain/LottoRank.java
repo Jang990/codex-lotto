@@ -1,4 +1,4 @@
-package com.example;
+package com.example.domain;
 
 /**
  * 일치 개수와 보너스 일치 여부로 로또 등수를 판정한다.

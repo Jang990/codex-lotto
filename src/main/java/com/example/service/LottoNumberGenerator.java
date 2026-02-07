@@ -1,4 +1,6 @@
-package com.example;
+package com.example.service;
+
+import com.example.domain.Lotto;
 
 import java.util.ArrayList;
 import java.util.Collections;

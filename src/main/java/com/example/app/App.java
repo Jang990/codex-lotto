@@ -1,4 +1,11 @@
-package com.example;
+package com.example.app;
+
+import com.example.domain.Lotto;
+import com.example.parser.BonusNumberParser;
+import com.example.parser.WinningNumbersParser;
+import com.example.service.LottoIssuer;
+import com.example.service.LottoNumberGenerator;
+import com.example.service.PurchaseAmountValidator;
 
 public class App {
     private static final int PURCHASE_AMOUNT_INDEX = 0;

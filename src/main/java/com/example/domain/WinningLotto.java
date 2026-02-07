@@ -1,4 +1,4 @@
-package com.example;
+package com.example.domain;
 
 /**
  * 당첨 Lotto와 보너스 번호를 보관하고 보너스 번호 규칙을 검증한다.

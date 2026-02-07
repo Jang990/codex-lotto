@@ -1,5 +1,7 @@
 package com.example;
 
+import com.example.domain.Lotto;
+import com.example.parser.BonusNumberParser;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 

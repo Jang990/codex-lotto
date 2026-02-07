@@ -1,6 +1,6 @@
 package com.example.casetest;
 
-import com.example.App;
+import com.example.app.App;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 

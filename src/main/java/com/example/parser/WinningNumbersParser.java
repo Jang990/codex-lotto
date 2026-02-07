@@ -1,4 +1,6 @@
-package com.example;
+package com.example.parser;
+
+import com.example.domain.Lotto;
 
 import java.util.Arrays;
 import java.util.List;

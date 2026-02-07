@@ -1,4 +1,6 @@
-package com.example;
+package com.example.parser;
+
+import com.example.domain.Lotto;
 
 /**
  * 보너스 번호 입력 문자열을 숫자로 파싱하고 당첨 번호 중복을 검증한다.

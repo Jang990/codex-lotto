@@ -1,4 +1,4 @@
-package com.example;
+package com.example.service;
 
 /**
  * 구입 금액이 양의 1,000원 단위인지 검증한다.

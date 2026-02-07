@@ -25,6 +25,14 @@ public class WinningLotto {
         return bonusNumber;
     }
 
+    public LottoRank judge(Lotto purchasedLotto) {
+        int matchCount = (int) purchasedLotto.numbers().stream()
+                .filter(number -> winningNumbers.contains(number))
+                .count();
+        boolean bonusMatched = purchasedLotto.contains(bonusNumber);
+        return LottoRank.from(matchCount, bonusMatched);
+    }
+
     private void validateBonusNumberRange(int bonusNumber) {
         if (bonusNumber < MIN_LOTTO_NUMBER || bonusNumber > MAX_LOTTO_NUMBER) {
             throw new IllegalArgumentException("[ERROR] 보너스 번호는 1부터 45 사이여야 합니다.");

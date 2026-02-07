@@ -32,4 +32,17 @@ class WinningNumbersParserTest {
 
         assertTrue(exception.getMessage().startsWith("[ERROR]"));
     }
+
+    @Test
+    @DisplayName("당첨 번호 범위가 1부터 45를 벗어나면 예외를 던진다")
+    void winningNumbersMustBeInRangeOneToFortyFive() {
+        WinningNumbersParser parser = new WinningNumbersParser();
+
+        IllegalArgumentException exception = assertThrows(
+                IllegalArgumentException.class,
+                () -> parser.parse("1,2,3,4,5,46")
+        );
+
+        assertTrue(exception.getMessage().startsWith("[ERROR]"));
+    }
 }

@@ -1,6 +1,5 @@
-package com.example;
+package com.example.domain;
 
-import com.example.domain.Lotto;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 

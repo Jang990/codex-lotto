@@ -58,4 +58,4 @@
   - #7-2 (refactor) 네이밍/상수/클래스 책임 주석을 규칙에 맞춰 정리한다.
   - #7-3 (refactor) 당첨/보너스 검증 책임을 Lotto 도메인으로 이동한다. ✅
   - #7-4 (refactor) 메인 코드를 책임 기준 패키지(`domain`, `parser`, `service`, `app`)로 분리한다. ✅
-  - #7-5 (refactor) 테스트 코드를 대상 패키지 구조에 맞게 정리하고 import를 정돈한다.
+  - #7-5 (refactor) 테스트 코드를 대상 패키지 구조에 맞게 정리하고 import를 정돈한다. ✅

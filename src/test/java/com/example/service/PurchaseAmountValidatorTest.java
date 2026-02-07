@@ -1,6 +1,5 @@
-package com.example;
+package com.example.service;
 
-import com.example.service.PurchaseAmountValidator;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 

@@ -1,7 +1,6 @@
-package com.example;
+package com.example.parser;
 
 import com.example.domain.Lotto;
-import com.example.parser.WinningNumbersParser;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 

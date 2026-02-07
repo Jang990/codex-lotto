@@ -21,4 +21,17 @@ class WinningLottoTest {
 
         assertTrue(exception.getMessage().startsWith("[ERROR]"));
     }
+
+    @Test
+    @DisplayName("보너스 번호가 당첨 번호와 중복되면 예외를 던진다")
+    void bonusNumberMustNotDuplicateWinningNumbers() {
+        Lotto winningNumbers = new Lotto(List.of(1, 2, 3, 4, 5, 6));
+
+        IllegalArgumentException exception = assertThrows(
+                IllegalArgumentException.class,
+                () -> new WinningLotto(winningNumbers, 6)
+        );
+
+        assertTrue(exception.getMessage().startsWith("[ERROR]"));
+    }
 }

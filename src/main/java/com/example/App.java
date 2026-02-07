@@ -5,6 +5,7 @@ import java.util.List;
 public class App {
     private static final int PURCHASE_AMOUNT_INDEX = 0;
     private static final int WINNING_NUMBERS_INDEX = 1;
+    private static final int BONUS_NUMBER_INDEX = 2;
     private static final String SAMPLE_INPUT = String.join("\n",
             "8000",
             "1,2,3,4,5,6",
@@ -27,12 +28,9 @@ public class App {
             "5개 일치, 보너스 볼 일치 (30,000,000원) - 0개",
             "6개 일치 (2,000,000,000원) - 0개",
             "총 수익률은 62.5%입니다.");
-    private static final String DUPLICATE_BONUS_NUMBER_INPUT = String.join("\n",
-            "8000",
-            "1,2,3,4,5,6",
-            "6");
     private final PurchaseAmountValidator purchaseAmountValidator = new PurchaseAmountValidator();
     private final WinningNumbersParser winningNumbersParser = new WinningNumbersParser();
+    private final BonusNumberParser bonusNumberParser = new BonusNumberParser();
 
     public String greet(String name) {
         return "Hello, " + name + "!";
@@ -41,12 +39,10 @@ public class App {
     public String run(String input) {
         validatePurchaseAmount(input);
         List<Integer> winningNumbers = parseWinningNumbers(input);
+        parseBonusNumber(input, winningNumbers);
 
         if (SAMPLE_INPUT.equals(input)) {
             return SAMPLE_OUTPUT;
-        }
-        if (DUPLICATE_BONUS_NUMBER_INPUT.equals(input)) {
-            throw new IllegalArgumentException("[ERROR] 보너스 번호는 당첨 번호와 중복될 수 없습니다.");
         }
         throw new IllegalArgumentException("[ERROR] 지원하지 않는 입력입니다.");
     }
@@ -64,6 +60,11 @@ public class App {
     private List<Integer> parseWinningNumbers(String input) {
         String[] lines = input.split("\n");
         return winningNumbersParser.parse(lines[WINNING_NUMBERS_INDEX]);
+    }
+
+    private int parseBonusNumber(String input, List<Integer> winningNumbers) {
+        String[] lines = input.split("\n");
+        return bonusNumberParser.parse(lines[BONUS_NUMBER_INDEX], winningNumbers);
     }
 
     public static void main(String[] args) {

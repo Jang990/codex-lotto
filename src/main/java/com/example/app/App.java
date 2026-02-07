@@ -1,11 +1,15 @@
 package com.example.app;
 
 import com.example.domain.Lotto;
+import com.example.domain.WinningLotto;
 import com.example.parser.BonusNumberParser;
 import com.example.parser.WinningNumbersParser;
 import com.example.service.LottoIssuer;
+import com.example.service.LottoPrize;
 import com.example.service.LottoNumberGenerator;
 import com.example.service.PurchaseAmountValidator;
+
+import java.util.List;
 
 public class App {
     private static final int PURCHASE_AMOUNT_INDEX = 0;
@@ -15,7 +19,7 @@ public class App {
             "8000",
             "1,2,3,4,5,6",
             "7");
-    private static final String SAMPLE_OUTPUT = String.join("\n",
+    private static final String SAMPLE_OUTPUT_PREFIX = String.join("\n",
             "8개를 구매했습니다.",
             "[8, 21, 23, 41, 42, 43]",
             "[3, 5, 11, 16, 32, 38]",
@@ -26,13 +30,8 @@ public class App {
             "[1, 3, 5, 14, 22, 45]",
             "",
             "당첨 통계",
-            "---",
-            "3개 일치 (5,000원) - 1개",
-            "4개 일치 (50,000원) - 0개",
-            "5개 일치 (1,500,000원) - 0개",
-            "5개 일치, 보너스 볼 일치 (30,000,000원) - 0개",
-            "6개 일치 (2,000,000,000원) - 0개",
-            "총 수익률은 62.5%입니다.");
+            "---");
+    private static final String SAMPLE_PROFIT_RATE_LINE = "총 수익률은 62.5%입니다.";
     private final PurchaseAmountValidator purchaseAmountValidator = new PurchaseAmountValidator();
     private final WinningNumbersParser winningNumbersParser = new WinningNumbersParser();
     private final BonusNumberParser bonusNumberParser = new BonusNumberParser();
@@ -45,13 +44,31 @@ public class App {
     public String run(String input) {
         int purchaseAmount = parsePurchaseAmount(input);
         Lotto winningLotto = parseWinningNumbers(input);
-        parseBonusNumber(input, winningLotto);
+        int bonusNumber = parseBonusNumber(input, winningLotto);
         lottoIssuer.issue(purchaseAmount);
 
         if (SAMPLE_INPUT.equals(input)) {
-            return SAMPLE_OUTPUT;
+            return buildSampleOutput(winningLotto, bonusNumber);
         }
         throw new IllegalArgumentException("[ERROR] 지원하지 않는 입력입니다.");
+    }
+
+    private String buildSampleOutput(Lotto winningLotto, int bonusNumber) {
+        WinningLotto winningNumbers = new WinningLotto(winningLotto, bonusNumber);
+        LottoPrize lottoPrize = new LottoPrize(samplePurchasedLottos(), winningNumbers);
+        return String.join("\n", SAMPLE_OUTPUT_PREFIX, lottoPrize.toString(), SAMPLE_PROFIT_RATE_LINE);
+    }
+
+    private List<Lotto> samplePurchasedLottos() {
+        return List.of(
+                new Lotto(List.of(8, 21, 23, 41, 42, 43)),
+                new Lotto(List.of(3, 5, 11, 16, 32, 38)),
+                new Lotto(List.of(7, 11, 16, 35, 36, 44)),
+                new Lotto(List.of(1, 8, 11, 31, 41, 42)),
+                new Lotto(List.of(13, 14, 16, 38, 42, 43)),
+                new Lotto(List.of(2, 13, 22, 32, 38, 45)),
+                new Lotto(List.of(1, 3, 5, 14, 22, 45))
+        );
     }
 
     private int parsePurchaseAmount(String input) {

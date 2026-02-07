@@ -29,15 +29,17 @@ public class App {
     private final PurchaseAmountValidator purchaseAmountValidator = new PurchaseAmountValidator();
     private final WinningNumbersParser winningNumbersParser = new WinningNumbersParser();
     private final BonusNumberParser bonusNumberParser = new BonusNumberParser();
+    private final LottoIssuer lottoIssuer = new LottoIssuer(new LottoNumberGenerator());
 
     public String greet(String name) {
         return "Hello, " + name + "!";
     }
 
     public String run(String input) {
-        validatePurchaseAmount(input);
+        int purchaseAmount = parsePurchaseAmount(input);
         Lotto winningLotto = parseWinningNumbers(input);
         parseBonusNumber(input, winningLotto);
+        lottoIssuer.issue(purchaseAmount);
 
         if (SAMPLE_INPUT.equals(input)) {
             return SAMPLE_OUTPUT;
@@ -45,11 +47,12 @@ public class App {
         throw new IllegalArgumentException("[ERROR] 지원하지 않는 입력입니다.");
     }
 
-    private void validatePurchaseAmount(String input) {
+    private int parsePurchaseAmount(String input) {
         String[] lines = input.split("\n");
         try {
             int purchaseAmount = Integer.parseInt(lines[PURCHASE_AMOUNT_INDEX]);
             purchaseAmountValidator.validate(purchaseAmount);
+            return purchaseAmount;
         } catch (NumberFormatException e) {
             throw new IllegalArgumentException("[ERROR] 구입 금액은 1,000원 단위여야 합니다.");
         }

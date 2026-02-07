@@ -51,4 +51,17 @@ class AppCaseTest {
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> app.run(input));
         assertTrue(exception.getMessage().startsWith("[ERROR]"));
     }
+
+    @Test
+    @DisplayName("당첨 번호가 6개가 아니면 에러로 시작하는 예외를 던진다")
+    void throwsExceptionForInvalidWinningNumberCount() {
+        App app = new App();
+        String input = String.join("\n",
+                "8000",
+                "1,2,3,4,5",
+                "7");
+
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> app.run(input));
+        assertTrue(exception.getMessage().startsWith("[ERROR]"));
+    }
 }

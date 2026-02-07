@@ -1,0 +1,6 @@
+.gradle/
+build/
+out/
+
+# Gradle wrapper JAR is intentionally tracked when generated.
+!gradle/wrapper/gradle-wrapper.jar

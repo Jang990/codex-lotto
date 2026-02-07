@@ -61,3 +61,5 @@
   - #7-5 (refactor) 테스트 코드를 대상 패키지 구조에 맞게 정리하고 import를 정돈한다. ✅
   - #7-6 (refactor) LottoRankJudge의 판정 책임을 WinningLotto.judge(Lotto)로 이동한다. ✅
   - #7-7 (refactor) 책임 이동 후 LottoRankJudge를 제거하고 호출부를 정리한다. ✅
+  - #7-8 (refactor) LottoPrize가 `List<Lotto>`와 `WinningLotto`를 받아 등수별 집계와 총 당첨금을 함께 반환하도록 통합한다. ✅
+  - #7-9 (refactor) 통합 후 LottoRankCounter/LottoPrizeCalculator의 중복 책임을 제거하고 호출부를 정리한다.

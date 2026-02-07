@@ -31,6 +31,10 @@ public class App {
             "8000",
             "1,2,3,4,5",
             "7");
+    private static final String DUPLICATE_WINNING_NUMBER_INPUT = String.join("\n",
+            "8000",
+            "1,2,3,4,5,5",
+            "7");
 
     public String greet(String name) {
         return "Hello, " + name + "!";
@@ -45,6 +49,9 @@ public class App {
         }
         if (INVALID_WINNING_NUMBER_COUNT_INPUT.equals(input)) {
             throw new IllegalArgumentException("[ERROR] 당첨 번호는 6개여야 합니다.");
+        }
+        if (DUPLICATE_WINNING_NUMBER_INPUT.equals(input)) {
+            throw new IllegalArgumentException("[ERROR] 당첨 번호는 중복될 수 없습니다.");
         }
         throw new IllegalArgumentException("[ERROR] 지원하지 않는 입력입니다.");
     }

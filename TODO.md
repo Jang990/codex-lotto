@@ -60,4 +60,4 @@
   - #7-4 (refactor) 메인 코드를 책임 기준 패키지(`domain`, `parser`, `service`, `app`)로 분리한다. ✅
   - #7-5 (refactor) 테스트 코드를 대상 패키지 구조에 맞게 정리하고 import를 정돈한다. ✅
   - #7-6 (refactor) LottoRankJudge의 판정 책임을 WinningLotto.judge(Lotto)로 이동한다. ✅
-  - #7-7 (refactor) 책임 이동 후 LottoRankJudge를 제거하고 호출부를 정리한다.
+  - #7-7 (refactor) 책임 이동 후 LottoRankJudge를 제거하고 호출부를 정리한다. ✅

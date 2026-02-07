@@ -13,15 +13,30 @@ import java.util.Map;
  */
 public class LottoPrize {
     private static final Map<LottoRank, Long> PRIZE_BY_RANK = createPrizeByRank();
+    private final Map<LottoRank, Integer> rankCounts;
+    private final long totalPrize;
 
-    public Result calculate(List<Lotto> purchasedLottos, WinningLotto winningLotto) {
-        Map<LottoRank, Integer> rankCounts = initializeRankCounts();
+    public LottoPrize(List<Lotto> purchasedLottos, WinningLotto winningLotto) {
+        this.rankCounts = initializeRankCounts();
         for (Lotto purchasedLotto : purchasedLottos) {
             LottoRank rank = winningLotto.judge(purchasedLotto);
             rankCounts.put(rank, rankCounts.get(rank) + 1);
         }
-        long totalPrize = calculateTotalPrize(rankCounts);
-        return new Result(Map.copyOf(rankCounts), totalPrize);
+        this.totalPrize = calculateTotalPrize(rankCounts);
+    }
+
+    public long getTotalPrize() {
+        return totalPrize;
+    }
+
+    @Override
+    public String toString() {
+        return String.join("\n",
+                "3개 일치 (5,000원) - " + rankCounts.get(LottoRank.FIFTH) + "개",
+                "4개 일치 (50,000원) - " + rankCounts.get(LottoRank.FOURTH) + "개",
+                "5개 일치 (1,500,000원) - " + rankCounts.get(LottoRank.THIRD) + "개",
+                "5개 일치, 보너스 볼 일치 (30,000,000원) - " + rankCounts.get(LottoRank.SECOND) + "개",
+                "6개 일치 (2,000,000,000원) - " + rankCounts.get(LottoRank.FIRST) + "개");
     }
 
     private Map<LottoRank, Integer> initializeRankCounts() {
@@ -49,8 +64,5 @@ public class LottoPrize {
         prizeByRank.put(LottoRank.FIFTH, 5_000L);
         prizeByRank.put(LottoRank.MISS, 0L);
         return prizeByRank;
-    }
-
-    public record Result(Map<LottoRank, Integer> rankCounts, long totalPrize) {
     }
 }

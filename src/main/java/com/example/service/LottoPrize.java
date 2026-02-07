@@ -29,6 +29,11 @@ public class LottoPrize {
         return totalPrize;
     }
 
+    public double calculateProfitRate(int purchaseAmount) {
+        double rawProfitRate = (double) totalPrize / purchaseAmount * 100;
+        return Math.round(rawProfitRate * 10) / 10.0;
+    }
+
     @Override
     public String toString() {
         return String.join("\n",

@@ -34,4 +34,24 @@ class LottoPrizeTest {
         assertEquals(expectedStatistics, lottoPrize.toString());
         assertEquals(2_031_555_000L, lottoPrize.getTotalPrize());
     }
+
+    @Test
+    @DisplayName("구입 금액 기준 수익률을 소수점 둘째 자리에서 반올림해 계산한다")
+    void calculateProfitRateRoundedAtSecondDecimalPlace() {
+        WinningLotto winningLotto = new WinningLotto(new Lotto(List.of(1, 2, 3, 4, 5, 6)), 7);
+        List<Lotto> purchasedLottos = List.of(
+                new Lotto(List.of(1, 2, 3, 4, 5, 6)),
+                new Lotto(List.of(1, 2, 3, 4, 5, 7)),
+                new Lotto(List.of(1, 2, 3, 4, 5, 8)),
+                new Lotto(List.of(1, 2, 3, 4, 8, 9)),
+                new Lotto(List.of(1, 2, 3, 8, 9, 10)),
+                new Lotto(List.of(1, 2, 8, 9, 10, 11)),
+                new Lotto(List.of(12, 13, 14, 15, 16, 17))
+        );
+        LottoPrize lottoPrize = new LottoPrize(purchasedLottos, winningLotto);
+
+        double profitRate = lottoPrize.calculateProfitRate(8_000);
+
+        assertEquals(25_394_437.5, profitRate);
+    }
 }

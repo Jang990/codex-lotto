@@ -23,6 +23,9 @@ public class WinningNumbersParser {
         if (winningNumbers.stream().anyMatch(number -> number < MIN_LOTTO_NUMBER || number > MAX_LOTTO_NUMBER)) {
             throw new IllegalArgumentException("[ERROR] 당첨 번호는 1부터 45 사이여야 합니다.");
         }
+        if (winningNumbers.stream().distinct().count() != winningNumbers.size()) {
+            throw new IllegalArgumentException("[ERROR] 당첨 번호는 중복될 수 없습니다.");
+        }
 
         return winningNumbers;
     }

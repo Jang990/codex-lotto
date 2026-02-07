@@ -1,7 +1,10 @@
 package com.example;
 
+import java.util.List;
+
 public class App {
     private static final int PURCHASE_AMOUNT_INDEX = 0;
+    private static final int WINNING_NUMBERS_INDEX = 1;
     private static final String SAMPLE_INPUT = String.join("\n",
             "8000",
             "1,2,3,4,5,6",
@@ -24,19 +27,12 @@ public class App {
             "5개 일치, 보너스 볼 일치 (30,000,000원) - 0개",
             "6개 일치 (2,000,000,000원) - 0개",
             "총 수익률은 62.5%입니다.");
-    private static final String INVALID_WINNING_NUMBER_COUNT_INPUT = String.join("\n",
-            "8000",
-            "1,2,3,4,5",
-            "7");
-    private static final String DUPLICATE_WINNING_NUMBER_INPUT = String.join("\n",
-            "8000",
-            "1,2,3,4,5,5",
-            "7");
     private static final String DUPLICATE_BONUS_NUMBER_INPUT = String.join("\n",
             "8000",
             "1,2,3,4,5,6",
             "6");
     private final PurchaseAmountValidator purchaseAmountValidator = new PurchaseAmountValidator();
+    private final WinningNumbersParser winningNumbersParser = new WinningNumbersParser();
 
     public String greet(String name) {
         return "Hello, " + name + "!";
@@ -44,15 +40,10 @@ public class App {
 
     public String run(String input) {
         validatePurchaseAmount(input);
+        List<Integer> winningNumbers = parseWinningNumbers(input);
 
         if (SAMPLE_INPUT.equals(input)) {
             return SAMPLE_OUTPUT;
-        }
-        if (INVALID_WINNING_NUMBER_COUNT_INPUT.equals(input)) {
-            throw new IllegalArgumentException("[ERROR] 당첨 번호는 6개여야 합니다.");
-        }
-        if (DUPLICATE_WINNING_NUMBER_INPUT.equals(input)) {
-            throw new IllegalArgumentException("[ERROR] 당첨 번호는 중복될 수 없습니다.");
         }
         if (DUPLICATE_BONUS_NUMBER_INPUT.equals(input)) {
             throw new IllegalArgumentException("[ERROR] 보너스 번호는 당첨 번호와 중복될 수 없습니다.");
@@ -68,6 +59,11 @@ public class App {
         } catch (NumberFormatException e) {
             throw new IllegalArgumentException("[ERROR] 구입 금액은 1,000원 단위여야 합니다.");
         }
+    }
+
+    private List<Integer> parseWinningNumbers(String input) {
+        String[] lines = input.split("\n");
+        return winningNumbersParser.parse(lines[WINNING_NUMBERS_INDEX]);
     }
 
     public static void main(String[] args) {

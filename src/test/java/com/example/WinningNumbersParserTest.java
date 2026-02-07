@@ -45,4 +45,17 @@ class WinningNumbersParserTest {
 
         assertTrue(exception.getMessage().startsWith("[ERROR]"));
     }
+
+    @Test
+    @DisplayName("당첨 번호에 중복된 숫자가 있으면 예외를 던진다")
+    void winningNumbersMustNotContainDuplicates() {
+        WinningNumbersParser parser = new WinningNumbersParser();
+
+        IllegalArgumentException exception = assertThrows(
+                IllegalArgumentException.class,
+                () -> parser.parse("1,2,3,4,5,5")
+        );
+
+        assertTrue(exception.getMessage().startsWith("[ERROR]"));
+    }
 }

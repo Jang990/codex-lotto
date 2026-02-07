@@ -8,7 +8,6 @@
   - #0-3 (case-test) 당첨 번호가 6개가 아니면 `[ERROR]`로 시작하는 `IllegalArgumentException`을 반환한다. ✅
   - #0-4 (case-test) 당첨 번호 6개 중 중복된 숫자가 있으면 `[ERROR]`로 시작하는 `IllegalArgumentException`을 반환한다. ✅
   - #0-5 (case-test) 보너스 번호가 당첨 번호와 중복되면 `[ERROR]`로 시작하는 `IllegalArgumentException`을 반환한다. ✅
-  - #0-6 App 단일 진입점(`run(String input)`)을 만들고 #0-1~#0-5를 하드코딩으로 통과시킨다.
 
 1. 구입 금액 검증 모듈 치환
   - #1-1 (unit) 구입 금액이 양의 1,000원 단위인지 검증하는 테스트를 작성한다.

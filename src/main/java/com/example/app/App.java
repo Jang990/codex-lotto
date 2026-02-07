@@ -31,7 +31,6 @@ public class App {
             "",
             "당첨 통계",
             "---");
-    private static final String SAMPLE_PROFIT_RATE_LINE = "총 수익률은 62.5%입니다.";
     private final PurchaseAmountValidator purchaseAmountValidator = new PurchaseAmountValidator();
     private final WinningNumbersParser winningNumbersParser = new WinningNumbersParser();
     private final BonusNumberParser bonusNumberParser = new BonusNumberParser();
@@ -55,8 +54,8 @@ public class App {
 
     private String buildSampleOutput(Lotto winningLotto, int bonusNumber) {
         WinningLotto winningNumbers = new WinningLotto(winningLotto, bonusNumber);
-        LottoPrize lottoPrize = new LottoPrize(samplePurchasedLottos(), winningNumbers);
-        return String.join("\n", SAMPLE_OUTPUT_PREFIX, lottoPrize.toString(), SAMPLE_PROFIT_RATE_LINE);
+        LottoPrize lottoPrize = new LottoPrize(samplePurchasedLottos(), winningNumbers, 8_000);
+        return String.join("\n", SAMPLE_OUTPUT_PREFIX, lottoPrize.toString());
     }
 
     private List<Lotto> samplePurchasedLottos() {

@@ -15,14 +15,20 @@ public class LottoPrize {
     private static final Map<LottoRank, Long> PRIZE_BY_RANK = createPrizeByRank();
     private final Map<LottoRank, Integer> rankCounts;
     private final long totalPrize;
+    private final Integer purchaseAmount;
 
     public LottoPrize(List<Lotto> purchasedLottos, WinningLotto winningLotto) {
+        this(purchasedLottos, winningLotto, null);
+    }
+
+    public LottoPrize(List<Lotto> purchasedLottos, WinningLotto winningLotto, Integer purchaseAmount) {
         this.rankCounts = initializeRankCounts();
         for (Lotto purchasedLotto : purchasedLottos) {
             LottoRank rank = winningLotto.judge(purchasedLotto);
             rankCounts.put(rank, rankCounts.get(rank) + 1);
         }
         this.totalPrize = calculateTotalPrize(rankCounts);
+        this.purchaseAmount = purchaseAmount;
     }
 
     public long getTotalPrize() {
@@ -36,12 +42,16 @@ public class LottoPrize {
 
     @Override
     public String toString() {
-        return String.join("\n",
+        String statistics = String.join("\n",
                 "3개 일치 (5,000원) - " + rankCounts.get(LottoRank.FIFTH) + "개",
                 "4개 일치 (50,000원) - " + rankCounts.get(LottoRank.FOURTH) + "개",
                 "5개 일치 (1,500,000원) - " + rankCounts.get(LottoRank.THIRD) + "개",
                 "5개 일치, 보너스 볼 일치 (30,000,000원) - " + rankCounts.get(LottoRank.SECOND) + "개",
                 "6개 일치 (2,000,000,000원) - " + rankCounts.get(LottoRank.FIRST) + "개");
+        if (purchaseAmount == null) {
+            return statistics;
+        }
+        return statistics + "\n" + String.format("총 수익률은 %.1f%%입니다.", calculateProfitRate(purchaseAmount));
     }
 
     private Map<LottoRank, Integer> initializeRankCounts() {

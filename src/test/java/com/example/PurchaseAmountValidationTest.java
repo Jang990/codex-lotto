@@ -1,6 +1,5 @@
-package com.example.unit;
+package com.example;
 
-import com.example.App;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 

@@ -1,7 +1,5 @@
 package com.example;
 
-import java.util.List;
-
 public class App {
     private static final int PURCHASE_AMOUNT_INDEX = 0;
     private static final int WINNING_NUMBERS_INDEX = 1;
@@ -38,8 +36,8 @@ public class App {
 
     public String run(String input) {
         validatePurchaseAmount(input);
-        List<Integer> winningNumbers = parseWinningNumbers(input);
-        parseBonusNumber(input, winningNumbers);
+        Lotto winningLotto = parseWinningNumbers(input);
+        parseBonusNumber(input, winningLotto);
 
         if (SAMPLE_INPUT.equals(input)) {
             return SAMPLE_OUTPUT;
@@ -57,14 +55,14 @@ public class App {
         }
     }
 
-    private List<Integer> parseWinningNumbers(String input) {
+    private Lotto parseWinningNumbers(String input) {
         String[] lines = input.split("\n");
         return winningNumbersParser.parse(lines[WINNING_NUMBERS_INDEX]);
     }
 
-    private int parseBonusNumber(String input, List<Integer> winningNumbers) {
+    private int parseBonusNumber(String input, Lotto winningLotto) {
         String[] lines = input.split("\n");
-        return bonusNumberParser.parse(lines[BONUS_NUMBER_INDEX], winningNumbers);
+        return bonusNumberParser.parse(lines[BONUS_NUMBER_INDEX], winningLotto);
     }
 
     public static void main(String[] args) {

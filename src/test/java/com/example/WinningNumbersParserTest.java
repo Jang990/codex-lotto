@@ -3,8 +3,6 @@ package com.example;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -15,9 +13,9 @@ class WinningNumbersParserTest {
     void parseCommaSeparatedWinningNumbers() {
         WinningNumbersParser parser = new WinningNumbersParser();
 
-        List<Integer> result = parser.parse("1,2,3,4,5,6");
+        Lotto result = parser.parse("1,2,3,4,5,6");
 
-        assertEquals(List.of(1, 2, 3, 4, 5, 6), result);
+        assertEquals(java.util.List.of(1, 2, 3, 4, 5, 6), result.numbers());
     }
 
     @Test

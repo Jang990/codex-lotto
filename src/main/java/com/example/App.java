@@ -23,6 +23,10 @@ public class App {
             "5개 일치, 보너스 볼 일치 (30,000,000원) - 0개",
             "6개 일치 (2,000,000,000원) - 0개",
             "총 수익률은 62.5%입니다.");
+    private static final String INVALID_PURCHASE_AMOUNT_INPUT = String.join("\n",
+            "8001",
+            "1,2,3,4,5,6",
+            "7");
 
     public String greet(String name) {
         return "Hello, " + name + "!";
@@ -31,6 +35,9 @@ public class App {
     public String run(String input) {
         if (SAMPLE_INPUT.equals(input)) {
             return SAMPLE_OUTPUT;
+        }
+        if (INVALID_PURCHASE_AMOUNT_INPUT.equals(input)) {
+            throw new IllegalArgumentException("[ERROR] 구입 금액은 1,000원 단위여야 합니다.");
         }
         throw new IllegalArgumentException("[ERROR] 지원하지 않는 입력입니다.");
     }

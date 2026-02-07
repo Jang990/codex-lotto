@@ -5,6 +5,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class AppCaseTest {
     @Test
@@ -35,5 +37,18 @@ class AppCaseTest {
                 "총 수익률은 62.5%입니다.");
 
         assertEquals(expected, app.run(input));
+    }
+
+    @Test
+    @DisplayName("구입금액이 1000원 단위가 아니면 에러로 시작하는 예외를 던진다")
+    void throwsExceptionForInvalidPurchaseAmountUnit() {
+        App app = new App();
+        String input = String.join("\n",
+                "8001",
+                "1,2,3,4,5,6",
+                "7");
+
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> app.run(input));
+        assertTrue(exception.getMessage().startsWith("[ERROR]"));
     }
 }

@@ -1,6 +1,7 @@
 package com.example;
 
 public class App {
+    private static final int PURCHASE_AMOUNT_INDEX = 0;
     private static final String SAMPLE_INPUT = String.join("\n",
             "8000",
             "1,2,3,4,5,6",
@@ -23,10 +24,6 @@ public class App {
             "5개 일치, 보너스 볼 일치 (30,000,000원) - 0개",
             "6개 일치 (2,000,000,000원) - 0개",
             "총 수익률은 62.5%입니다.");
-    private static final String INVALID_PURCHASE_AMOUNT_INPUT = String.join("\n",
-            "8001",
-            "1,2,3,4,5,6",
-            "7");
     private static final String INVALID_WINNING_NUMBER_COUNT_INPUT = String.join("\n",
             "8000",
             "1,2,3,4,5",
@@ -39,17 +36,17 @@ public class App {
             "8000",
             "1,2,3,4,5,6",
             "6");
+    private final PurchaseAmountValidator purchaseAmountValidator = new PurchaseAmountValidator();
 
     public String greet(String name) {
         return "Hello, " + name + "!";
     }
 
     public String run(String input) {
+        validatePurchaseAmount(input);
+
         if (SAMPLE_INPUT.equals(input)) {
             return SAMPLE_OUTPUT;
-        }
-        if (INVALID_PURCHASE_AMOUNT_INPUT.equals(input)) {
-            throw new IllegalArgumentException("[ERROR] 구입 금액은 1,000원 단위여야 합니다.");
         }
         if (INVALID_WINNING_NUMBER_COUNT_INPUT.equals(input)) {
             throw new IllegalArgumentException("[ERROR] 당첨 번호는 6개여야 합니다.");
@@ -61,6 +58,16 @@ public class App {
             throw new IllegalArgumentException("[ERROR] 보너스 번호는 당첨 번호와 중복될 수 없습니다.");
         }
         throw new IllegalArgumentException("[ERROR] 지원하지 않는 입력입니다.");
+    }
+
+    private void validatePurchaseAmount(String input) {
+        String[] lines = input.split("\n");
+        try {
+            int purchaseAmount = Integer.parseInt(lines[PURCHASE_AMOUNT_INDEX]);
+            purchaseAmountValidator.validate(purchaseAmount);
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException("[ERROR] 구입 금액은 1,000원 단위여야 합니다.");
+        }
     }
 
     public static void main(String[] args) {
